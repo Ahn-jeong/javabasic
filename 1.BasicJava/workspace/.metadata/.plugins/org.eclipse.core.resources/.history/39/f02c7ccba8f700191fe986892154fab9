@@ -1,0 +1,43 @@
+package vo;
+
+public class SugangListVO {//수강신청 내역
+	
+	private int sugangnum; //수강번호
+	private int subnum; //과목번호
+	private int lecnum; //강의번호
+	private String std; //학번	
+	private String prof; // 교수사번
+		
+	//lecture VO전체
+	public String getStd() {
+		return std;
+	}
+	public void setStd(String std) {
+		this.std = std;
+	}
+	
+	public String getProf() {
+		return prof;
+	}
+	public void setProf(String prof) {
+		this.prof = prof;
+	}
+	public int getSugangnum() {
+		return sugangnum;
+	}
+	public void setSugangnum(int sugangnum) {
+		this.sugangnum = sugangnum;
+	}
+	public int getLecnum() {
+		return lecnum;
+	}
+	public void setLecnum(int lecnum) {
+		this.lecnum = lecnum;
+	}
+	public int getSubnum() {
+		return subnum;
+	}
+	public void setSubnum(int subnum) {
+		this.subnum = subnum;
+	}
+}

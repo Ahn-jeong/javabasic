@@ -1,0 +1,274 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import vo.LectureVO;
+import vo.MylecVO;
+import vo.ProfessorVO;
+import vo.StudentVO;
+import vo.SubjectVO;
+import vo.SugangListVO;
+import dao.LectureDao;
+import dao.ListDao;
+import dao.StudentDao;
+import data.Database;
+import data.StuSession;
+
+public class StudentService {
+
+	/*
+	 * private static StudentService instance; StudentDao studnetDao =
+	 * StudentDao.getInstance();
+	 */
+
+	private StudentService() {
+	}
+
+	private static StudentService instance;
+
+	ListDao listDao = ListDao.getInstance();
+
+	public static StudentService getInstance() {
+		if (instance == null) {
+			instance = new StudentService();
+		}
+		return instance;
+	}
+
+	Database database = Database.getInstance();
+	LectureDao lectureDao = LectureDao.getInstance();
+	StudentDao studentDao = StudentDao.getInstance();
+
+	public void login() {// 로그인 메서드
+		Scanner s = new Scanner(System.in);
+		System.out.print("학번 : ");
+		String id = s.nextLine();
+		System.out.print("비밀번호 : ");
+		String password = s.nextLine();
+
+		// 사번과 비밀번호 일치하는 교수 검색
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("SN", id);
+		param.put("PASSWORD", password);
+
+		StudentVO stu = studentDao.selectStudent(param);
+
+		if (stu == null) {
+			System.out.println("학번 혹은 비밀번호가 일치하지 않습니다.");
+			System.out.println("로그인 화면으로 이동합니다.");
+			System.out.println();
+			login();
+		} else {
+			StuSession.loginstu = stu;
+			System.out.println("로그인 성공!");
+			System.out.println(stu.getName() + ", 로그인되었습니다.");
+			System.out.println();
+		}
+	}
+
+	public void Stuinfo() {
+		Scanner s = new Scanner(System.in);
+		int select;
+
+		System.out.println("-------------- " + StuSession.loginstu.getName()
+				+ " 학생의 정보입니다. --------------");
+		System.out.println("학 번\t: " + StuSession.loginstu.getStunum());
+		System.out.println("학 과\t: " + StuSession.loginstu.getMajor());
+		System.out.println("이 름\t: " + StuSession.loginstu.getName());
+		System.out.println("전화번호\t: " + StuSession.loginstu.getTel());
+		System.out.println("e-mail\t: " + StuSession.loginstu.getEmail());
+		System.out.println("상 태\t: " + StuSession.loginstu.getState());
+		System.out
+				.println("----------------------------------------------------");
+		System.out.println();
+		System.out.println("1. 비밀번호변경 | 2. 전화번호변경 | 3. e-mail변경 | 0. 뒤로가기");
+
+		select = Integer.parseInt(s.nextLine());
+		switch (select) {
+		case 1:
+			stdpwChange();
+			Stuinfo();
+			break;
+		case 2:
+			stdtelChange();
+			Stuinfo();
+			break;
+		case 3:
+			stdemailChange();
+			Stuinfo();
+			break;
+		case 0:
+			break;
+		default:
+			Stuinfo();
+		}
+
+	}
+
+	public void stdpwChange() {// 1-1. 비밀번호변경
+		Scanner s = new Scanner(System.in);
+		System.out.print("새로운 비밀번호 : ");
+		String newPw = s.nextLine();
+		studentDao.changePw(newPw);
+		System.out.println("비밀번호 변경 완료");
+	}
+
+	public void stdtelChange() {// 1-2. 전화번호변경
+		Scanner s = new Scanner(System.in);
+		System.out.print("새로운 전화번호 : ");
+		String newTel = s.nextLine();
+		studentDao.changeTel(newTel);
+		System.out.println("전화번호 변경 완료");
+	}
+
+	public void stdemailChange() {// 1-3. 이메일변경
+		Scanner s = new Scanner(System.in);
+		System.out.print("새로운 e-mail : ");
+		String newEm = s.nextLine();
+		studentDao.changeEmail(newEm);
+		System.out.println("e-mail 변경 완료");
+	}
+
+
+	public void lecinfo() {
+		int sel;
+		Scanner s = new Scanner(System.in);
+		System.out.println("---------------------- 강의 정보---------------------");
+
+		System.out
+				.println("-----------------------------------------------------------------------------------");
+		System.out.println("강의 번호\t과목번호\t담당 교수\t강의요일\t강의시간\t강의실\t학점\t년도\t학기");
+		System.out
+				.println("-----------------------------------------------------------------------------------");
+
+		ArrayList<LectureVO> lectureList = listDao.listLect();
+		System.out.println("-------------강의리스트입니다.-----------------");
+		System.out.println("강의번호\t강의년도\t학기\t과목번호\t과목명\t담당교수\t강의요일\t강의시간\t강의실");
+		for (int i = 0; i < lectureList.size(); i++) {
+			LectureVO user = lectureList.get(i);
+			System.out.println(user.getLecnum() + "\t" + user.getYear() + "\t" + user.getSemester() + "\t"
+					+ user.getSubNum() + "\t" + user.getSubName()  + user.getProfName()
+					+ "\t" + user.getDay() + "\t" + user.getTime() + "\t" + user.getRoom());
+		}
+		System.out.println("--------------------------------------------");
+
+		System.out.println("1. 수강신청하기 2. 뒤로 가기");
+
+		sel = Integer.parseInt(s.nextLine());
+		switch (sel) {
+		case 1:
+			Sugang();
+			break;
+		case 2:
+			break;
+		default:
+			lecinfo();
+		}
+	}
+
+	public void Sugang() {
+		int sel;
+		Scanner s = new Scanner(System.in);
+		System.out.println("수강할 강의번호를 적어주세요");
+		// 강의번호로 강의 가지고 오기
+		String lecnum = s.nextLine();
+
+		HashMap<String, String> lec = new HashMap<String, String>();
+		lec.put("LECNUM", lecnum);
+		LectureVO lectemp = database.tb_lec.get(lectureDao.changeLecture(lec));
+		SugangListVO user = studentDao.myLecList(lectemp);
+
+		System.out.println("std" + database.tb_sugang.get(0).getSugangnum());
+		lecinfo();
+	}
+	
+	public void myLeclist(){
+		
+		for(int i = 0; i < database.tb_sugang.size(); i++){
+			SugangListVO user = database.tb_sugang.get(i);
+			if(StuSession.loginstu.getStunum().equals().getStd())){
+				
+				
+			}
+		}
+		
+		
+		
+		
+		
+		
+	}
+
+
+
+//	public void searchstu() {// 3. 교수 검색
+//		Scanner s = new Scanner(System.in);
+//		int select;
+//
+//		System.out
+//				.println("----------------------------------------------------");
+//		System.out.println("1. 학과로 검색");
+//		System.out.println("2. 학번으로 검색");
+//		System.out.println("3. 이름으로 검색");
+//		System.out.println("0. 뒤로 가기");
+//		System.out
+//				.println("----------------------------------------------------");
+//		System.out.println("검색할 방법을 고르세요.");
+//
+//		select = Integer.parseInt(s.nextLine());
+//		switch (select) {
+//		case 1:
+//			searchByMajor();
+//			break;
+//		case 2:
+//			searchByStu();
+//			break;
+//		case 3:
+//			searchByName();
+//			break;
+//		case 0:
+//			break;
+//		default:
+//			searchstu();
+//		}
+//	}
+//
+//	private void searchByMajor() {
+//		Scanner s = new Scanner(System.in);
+//		System.out.print("학과 : ");
+//		String major = s.nextLine();
+//
+//		HashMap<String, String> param = new HashMap<String, String>();
+//		param.put("MAJOR", major);
+//
+//		ArrayList<StudentVO> prList = studentDao.searchStu(param);
+//		System.out
+//				.println("-----------------------------------------------------------------------------------");
+//		System.out.println("번호\t사번\t\t학과\t이름\t전화번호\t\te-mail\t\t\t상태");
+//		System.out
+//				.println("-----------------------------------------------------------------------------------");
+//		for (int i = 0; i < prList.size(); i++) {
+//			StudentVO pr = prList.get(i);
+//			System.out.println(i + 1 + "\t" + pr.getStunum() + "\t"
+//					+ pr.getMajor() + "\t" + pr.getName() + "\t" + pr.getTel()
+//					+ "\t" + pr.getEmail() + "\t" + pr.getState());
+//		}
+//		System.out
+//				.println("-----------------------------------------------------------------------------------");
+//		searchstu();
+//
+//	}
+//
+//	private void searchByStu() {
+//		// TODO Auto-generated method stub
+//
+//	}
+//
+//	private void searchByName() {
+//		// TODO Auto-generated method stub
+//
+//	}
+
+}

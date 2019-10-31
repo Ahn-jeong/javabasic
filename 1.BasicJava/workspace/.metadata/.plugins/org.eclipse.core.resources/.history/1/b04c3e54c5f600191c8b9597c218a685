@@ -1,0 +1,261 @@
+package dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import vo.LectureVO;
+import vo.MylecVO;
+import vo.ProfessorVO;
+import vo.StudentVO;
+import data.Database;
+import data.ProfSession;
+
+public class ProfessorDao {//사용자 정보 확인 다오
+
+	private static ProfessorDao instance;
+	
+	private ProfessorDao(){}
+	
+	public static ProfessorDao getInstance(){
+		if(instance == null){
+			instance = new ProfessorDao();
+		}
+		return instance;
+	}
+	
+	Database database = Database.getInstance();
+	
+	//아이디 중복 : 관리자가 쓰는 기능
+	public ProfessorVO selectProf(String key, String value) {
+
+		for(int i = 0; i < database.tb_prf.size(); i++){
+			ProfessorVO user = database.tb_prf.get(i);
+				
+			if(key.equals("EN")){
+				if(user.getEmpnum().equals(value)){
+					return user;
+				}
+			}
+		}
+			
+		return null;
+	}
+	
+	//교수추가
+	public void insertProfessor(ProfessorVO user) {
+		database.tb_prf.add(user);
+	}
+	
+	// 교수 인덱스 번호 찾기
+	public int changeProf(HashMap<String, String> param){
+		int count = 0;
+		for(int i = 0; i < database.tb_prf.size(); i++){
+			ProfessorVO user = database.tb_prf.get(i);
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("EN")){
+					if(user.getEmpnum().equals(value)){
+						count = i;
+					}
+				}
+			}
+		}
+		return count;
+	}
+	
+	//교수 삭제전 검색
+	public ProfessorVO checkProf(HashMap<String, String> param) { 
+		ProfessorVO rtnUser = null;
+		for(int i = 0; i<database.tb_prf.size(); i++){
+			ProfessorVO user = database.tb_prf.get(i);
+			boolean flag = true;
+				
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("EN")){
+					if(!user.getEmpnum().equals(value)){
+						flag = false;
+					}
+						
+				}
+					
+			}
+			if(flag){
+				rtnUser = user;
+			}
+		}
+		return rtnUser;
+	}
+	
+	public ArrayList<ProfessorVO> selectProfessorList(){
+		return database.tb_prf;
+	}
+	
+ 	//키워드로 테이블에 저장되어 있는 값 확인해서 비교하기
+	public ProfessorVO selectProf(HashMap<String, String> param) { 
+		ProfessorVO rtnUser = null;
+		for(int i = 0; i<database.tb_prf.size(); i++){
+			ProfessorVO user = database.tb_prf.get(i);
+			boolean flag = true;
+			
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("EN")){
+					if(!user.getEmpnum().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("PASSWORD")){
+					if(!user.getPasswd().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("MAJOR")){
+					if(!user.getMajor().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("NAME")){
+					if(!user.getName().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("TEL")){
+					if(!user.getTel().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("EMAIL")){
+					if(!user.getEmail().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("STATE")){
+					if(!user.getState().equals(value)){
+						flag = false;
+					}
+				}
+			}
+			if(flag){
+				rtnUser = user;
+			}
+		}
+		return rtnUser;
+	}
+	
+	//비밀번호 변경 기능
+	public void changePw(String newPw){
+		for(int i = 0; i < database.tb_prf.size(); i++){
+			if(ProfSession.loginprof.getEmpnum() == database.tb_prf.get(i).getEmpnum()){
+				database.tb_prf.get(i).setPasswd(newPw);
+				break;
+			}
+		}
+	}
+	//전화번호 변경 기능
+	public void changeTel(String newTel){
+		for(int i = 0; i < database.tb_prf.size(); i++){
+			if(ProfSession.loginprof.getEmpnum() == database.tb_prf.get(i).getEmpnum()){
+				database.tb_prf.get(i).setTel(newTel);
+				break;
+			}
+		}
+	}
+	//이메일 변경 기능
+	public void changeEmail(String newEm){
+		for(int i = 0; i < database.tb_prf.size(); i++){
+			if(ProfSession.loginprof.getEmpnum() == database.tb_prf.get(i).getEmpnum()){
+				database.tb_prf.get(i).setEmail(newEm);
+				break;
+			}
+		}
+	}
+	
+	//내 강의 목록 기능
+	public ArrayList<MylecVO> myLecList(){
+		ArrayList<MylecVO> lecList = new ArrayList<MylecVO>();//반환할 리스트
+		for(int i = 0; i < database.tb_lec.size(); i++){
+			MylecVO myLec = new MylecVO(); //리스트에 넣어줄 강의
+			//for문 안에서 로그인된 사번과 강의개설 테이블의 i번째의 사번이 같을 경우
+			if(ProfSession.loginprof.getEmpnum().equals(database.tb_lec.get(i).getProf())){
+				myLec.setDay(database.tb_lec.get(i).getDay()); //리스트에 추가한다.
+				myLec.setRoom(database.tb_lec.get(i).getRoom());
+				myLec.setSemester(database.tb_lec.get(i).getSemester());
+				myLec.setSub(database.tb_lec.get(i).getSubNum());
+				myLec.setTime(database.tb_lec.get(i).getTime());
+				myLec.setUnit(database.tb_lec.get(i).getUnit());
+				myLec.setYear(database.tb_lec.get(i).getYear());
+				for(int j = 0; j < database.tb_sub.size(); j++){
+					//for문 안에서 myLec의 과목번호가 과목테이블 j번째의 과목번호가 같을 경우
+					if(myLec.getSub() == database.tb_sub.get(j).getSubNum()){
+						myLec.setSubnm(database.tb_sub.get(j).getSubName());
+					}
+				}
+				lecList.add(myLec);
+			}
+		}
+		return lecList;
+	}
+	
+	
+	
+	//교수 검색 기능 / 키워드로 테이블에 있는 값 비교해서 리스트로 다시 리턴
+	public ArrayList<ProfessorVO> searchProf(HashMap<String, String> param){
+		ArrayList<ProfessorVO> prolist = new ArrayList<ProfessorVO>();
+		for(int i = 0; i < database.tb_prf.size(); i++){
+			ProfessorVO user = database.tb_prf.get(i);
+			boolean flag = true;
+			
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("EN")){
+					if(!user.getEmpnum().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("MAJOR")){
+					if(!user.getMajor().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("NAME")){
+					if(!user.getName().equals(value)){
+						flag = false;
+					}
+				}
+			}
+			if(flag){
+				prolist.add(user);
+			}
+		}
+		return prolist;
+	}
+	//학생 검색 기능 / 키워드로 테이블에 있는 값 비교해서 리스트로 다시 리턴
+	public ArrayList<StudentVO> searchSt(HashMap<String, String> param){
+		ArrayList<StudentVO> stlist = new ArrayList<StudentVO>();
+		for(int i = 0; i<database.tb_std.size(); i++){
+			StudentVO user = database.tb_std.get(i);
+			boolean flag = true;
+			
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("SN")){
+					if(!user.getStunum().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("MAJOR")){
+					if(!user.getMajor().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("NAME")){
+					if(!user.getName().equals(value)){
+						flag = false;
+					}
+				}
+			}
+			if(flag){
+				stlist.add(user);
+			}
+		}
+		return stlist;
+	}
+	
+}

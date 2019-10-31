@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>달력</title>
+		<style>
+			table,td{
+				border: 1px solid black;
+				text-align: center;
+			}
+			td{
+				width : 50px;
+				height : 50px;
+				background-color: cornsilk;
+			}
+		</style>
+		<script>
+			function proc1(){
+				var dayname = new Array("일", "월", "화", "수", "목", "금", "토")
+				var str = ""
+				var now = new Date(); // 년.월
+				str += "<table>";
+				str += "<tr>"
+				str += "<td>"
+				str += "<"
+				str += "</td>"
+				for(var i = 0; i < 1; i++){
+			    	str += "<td colspan = " + "5" + ">";
+					str += now.getFullYear() + "년" + "  ";		
+					str += now.getMonth()+1 + "월";
+					str += "</td>"
+				}
+				str +="<td>";
+		    	str += ">";
+		    	str +="</td>";
+				str += "</tr>"
+				str += "<tr>"
+				for(var i = 0; i<7; i++){
+					str += "<td id = day" + i +">";
+					str +=(dayname[i]);
+					str += "</td>"			
+				}
+				str += "</tr>";
+				for(var i = 0; i < 5; i++){
+					str += "<tr>";
+					for(var j = 0; j < 7; j++){
+						str += "<td id =" + parseInt(i*7+j) +">";
+						str += "</td>";
+					}
+					str += "</tr>";
+				}
+				str += "</table>";
+				
+				var day = now.date(year, month, 1); // 요일별 숫자
+				var lastday = new Date(2019,11,0).getDate(); //마지막 날짜
+				
+				document.getElementById("result").innerHTML = str;
+				
+				for(var j = day; j <= lastday+day-1; j++){			
+					document.getElementById(j).innerHTML = (j-day)+1; 
+				}
+				for(var i = 0; i <= lastday; i+=7){	
+						document.getElementById(i).style.color = "red";
+				}
+				for(var i = 6; i <= lastday; i+=7){
+					document.getElementById(i).style.color = "blue";
+				}
+				document.getElementById("day0").style.color = "red"; //일요일 색
+				document.getElementById("day6").style.color = "blue";//토요일 색
+			}
+		</script>
+	</head>
+	<body>
+		<button type = "button" id = "button" onclick = "proc1();">
+		</button>
+		<p id ="result"></p>
+	</body>
+</html>

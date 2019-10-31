@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<div id = "flip">
+			<ul>
+				<li>메뉴1</li>			
+				<li>메뉴1</li>			
+				<li>메뉴1</li>			
+				<li>메뉴1</li>			
+				<li>메뉴1</li>			
+			
+			</ul>
+		</div>
+	</body>
+</html>

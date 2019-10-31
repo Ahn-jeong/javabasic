@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>우정사업본부</title>
+<link
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Noto+Sans+KR&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="./mycss.css">
+<link rel="stylesheet" type="text/css" href="css/slider-pro.min.css"
+	media="screen" />
+<link rel="stylesheet" type="text/css" href="css/examples.css"
+	media="screen" />
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.sliderPro.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function($) {
+		$('#imgSlide').sliderPro({
+			width : 960,
+			height : 680,
+			arrows : false, //화살표표시
+			buttons : true, //버튼표시
+			waitForLayers : true,
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$(document).on("mouseover", "#header2", function() {
+			if ($("#hidden").css("display") == "none") {
+				$("#hidden").slideDown(700);
+			} else {
+				$("#hidden").slideUp();
+			}
+		})
+	});
+
+	$(document).ready(function() {
+		$("#finder").click(function() {
+			if ($("#location").css("display") == "none") {
+				$("#location").slideDown(200);
+			} else {
+				$("#location").slideUp();
+			}
+		});
+	});
+
+	$(document).ready(function() {
+		$("#redboxdiv2").click(function() {
+			if ($("#call").css("display") == "none") {
+				$("#call").slideDown(200);
+			} else {
+				$("#call").slideUp();
+			}
+		});
+	});
+
+	function proc1() {
+		document.getElementById("hiddenimg").src = "./img/ho1.png";
+	}
+	function proc2() {
+		document.getElementById("hiddenimg").src = "./img/ho2.png";
+	}
+	function proc3() {
+		document.getElementById("hiddenimg").src = "./img/ho3.png";
+	}
+	function proc4() {
+		document.getElementById("hiddenimg").src = "./img/ho4.png";
+	}
+	function proc5() {
+		document.getElementById("hiddenimg").src = "./img/ho5.png";
+	}
+	function proc6() {
+		document.getElementById("hiddenimg").src = "./img/ho6.png";
+	}
+</script>
+
+<script>
+	function change(n) {
+		if (n == 1) {
+			document.getElementById("middle5title1").style.color = "red";
+			document.getElementById("middle5title2").style.color = "black";
+			document.getElementById("middle5ul1").style.display = "inline-block";
+			document.getElementById("middle5ul2").style.display = "none";
+
+		} else if (n == 2) {
+			document.getElementById("middle5title2").style.color = "red";
+			document.getElementById("middle5title1").style.color = "black";
+			document.getElementById("middle5ul2").style.display = "inline-block";
+			document.getElementById("middle5ul1").style.display = "none";
+		}
+	}
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="header1">
+			<a
+				href="https://www.mois.go.kr/frt/sub/popup/p_taegugki_banner/screen.do"><img
+				id="hdimg" src="./img/header.png"></a>
+			<ul id="hdul1">
+				<li id="finder">우체국 찾기</li>
+				<li><input type="text" id="search" placeholder="통합검색">
+					<img src="./img/sch_btn.gif" id="searchimg"></li>
+				<li><a href="http://www.koreapost.go.kr/eng/index.do">ENGLISH</a></li>
+				<li><img src="./img/line2.gif" class="bar"></li>
+				<li id="hd1"><a
+					href="http://www.koreapost.go.kr/kpost/subIndex/191.do">사이트맵</a></li>
+			</ul>
+			<div id="location">
+				<ul>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>서울</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>경인</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>부산</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>충청</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>전남</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>경북</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>전북</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>강원</li></a>
+					<a href="http://www.koreapost.go.kr/se/subIndex/1476.do"><li>제주</li></a>
+				</ul>
+			
+			</div>
+		</div>
+		<div class="line"></div>
+		<div id="header2">
+			<a href="http://www.koreapost.go.kr" id="logoimg"><img
+				src="./img/logo_top.png"></a>
+			<ul id="hdul2">
+				<li id="ho1">사업분야</li>
+				<li id="ho2">열린경영</li>
+				<li id="ho3">고객참여</li>
+				<li id="ho4">우정소식</li>
+				<li id="ho5">정보공개</li>
+				<li id="ho6">기관소개</li>
+			</ul>
+		</div>
+		<div id="back">
+			<div id="mlink">
+				<ul class="mlink">
+					<li><a
+						href="https://www.epost.go.kr/search.RetrieveIntegrationNewZipCdList.comm"
+						target="_blank" class="red"><img src="./img/mlink1.png"
+							onmouseover="this.src='./img/mlink1on.png'"
+							onmouseout="this.src='./img/mlink1.png'"><span>우편번호검색</span></a></li>
+					<li><a href="http://www.koreapost.go.kr/kpost/subIndex/138.do"
+						class="red"><img src="./img/mlink2.png"
+							onmouseover="this.src='./img/mlink2on.png'"
+							onmouseout="this.src='./img/mlink2.png'"><span
+							class="span1">배송조회</span></a></li>
+					<li><a
+						href="https://www.epost.go.kr/main.RetrieveEpostPrivacyEvent.comm"
+						target="_blank" class="red"><img src="./img/mlink3.png"
+							onmouseover="this.src='./img/mlink3on.png'"
+							onmouseout="this.src='./img/mlink3.png'"><span>배달사전안내</span></a></li>
+					<li><a
+						href="http://www.koreapost.go.kr/extra/user/kpost/gps/gpsUserView.do"
+						target="_blank" class="red"><img src="./img/mlink4.png"
+							onmouseover="this.src='./img/mlink4on.png'"
+							onmouseout="this.src='./img/mlink4.png'"><span
+							class="span2">우체국찾기</span></a></li>
+				</ul>
+			</div>
+
+			<div id="middle">
+				<div id="centralbox1">
+					<div id="middle1">
+						<p>
+							보도자료<a href="http://www.koreapost.go.kr/"><img
+								src="./img/more2.gif"></a>
+						</p>
+
+						<ul>
+							<li><span><a href="#">온라인 쇼핑몰 업체 수출 활성화...</a></span> <span
+								class="right">2019-10-15</span></li>
+							<li><span><a href="#">‘제1회 우체국쇼핑 온라인마케팅...</a></span> <span
+								class="right">2019-10-13</span></li>
+							<li><span><a href="#">제18호 태풍 「미탁」피해 관련, 삼...</a></span> <span
+								class="right">2019-10-11</span></li>
+							<li><span><a href="#">라이프플러스 체크·신용카드 출시</a></span> <span
+								class="right">2019-09-29</span></li>
+						</ul>
+					</div>
+					<div id="middle2">
+						<div id="middle2div1">
+							<img id="middle2img" src="./img/middlebox2.png">
+						</div>
+						<a href="http://www.koreapost.go.kr"><div id="middle2div2"></div></a>
+						<ul>
+							<li><a href="#">서울청</a></li>
+							<li><a href="#">경인청</a></li>
+							<li><a href="#">부산청</a></li>
+							<li><a href="#">충청청</a></li>
+						</ul>
+						<ul>
+							<li><a href="#">전남청</a></li>
+							<li><div></li>
+							<li></li>
+							<li><a href="#">경북청</a></li>
+						</ul>
+						<ul>
+							<li><a href="#">전북청</a></li>
+							<li></li>
+							<li></li>
+							<li><a href="#">강원청</a></li>
+						</ul>
+						<ul>
+							<li>제주청</li>
+							<li><a href="#"> <span>우정공무원</span>
+									<p>교육원</p>
+							</a></li>
+							<li><a href="#"> <span>우정사업</span>
+									<p>정보센터</p>
+							</a></li>
+							<li><a href="#"> <span>우정사업</span>
+									<p>조달센터</p>
+							</a></li>
+						</ul>
+					</div>
+				</div>
+				<div id="centralbox2">
+					<div id="middle3"
+						onmouseover="document.getElementById('hiddenbox1').style.display = 'block';"
+						onmouseout="document.getElementById('hiddenbox1').style.display = 'none';">
+						<p class="middle3p1">우편서비스</p>
+						<ul>
+							<dl>우편
+							</dl>
+							<dl>쇼핑
+							</dl>
+							<dl>택배
+							</dl>
+							<dl>알뜰폰
+							</dl>
+						</ul>
+						<p class="middle3p2">1588-1300</p>
+
+						<div id="hiddenbox1">
+							<ul>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo1.png"></a></li>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo2.png"></a></li>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo3.png"></a></li>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo4.png"></a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="middle4"
+						onmouseover="document.getElementById('hiddenbox2').style.display = 'block';"
+						onmouseout="document.getElementById('hiddenbox2').style.display = 'none';">
+						<p class="middle4p1">금융서비스</p>
+						<ul>
+							<dl>예금
+							</dl>
+							<dl>보험
+							</dl>
+							<dl>카드
+							</dl>
+							<dl>펀드
+							</dl>
+						</ul>
+						<p class="middle4p2">
+							<span>예금</span>1599-1900, 1588-1900
+						</p>
+						<p class="middle4p2">
+							<span>보험</span>1599-0100
+						</p>
+						<div id="hiddenbox2">
+							<ul>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo5.png"></a></li>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo6.png"></a></li>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo7.png"></a></li>
+								<li><a href="#"><img
+										onmouseover="this.style.border = '1px solid red';"
+										onmouseout=" this.style.border = '0px solid red';"
+										src="./img/msv_logo8.png"></a></li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div id="middle5">
+						<p id="middle5title">
+							<span id="middle5title1" onclick="change(1);">공지</span> <span
+								id="middle5title2" onclick="change(2);">채용</span>
+						</p>
+						<ul id="middle5ul1">
+							<li><span>2019년 1회 장흥우체국 무기계약 ..</span> <span class="right">2019-10-23</span>
+							</li>
+							<li><span>2019년 재난대응안전한국훈련...</span> <span class="right">2019-10-22</span>
+							</li>
+							<li><span>서울퇴계로5가우체국 우편요금..</span> <span class="right">2019-10-22</span>
+							</li>
+							<li><span>2019년도 재난대응 안전한국훈련 실..</span> <span class="right">2019-10-21</span>
+							</li>
+						</ul>
+						<ul id="middle5ul2">
+							<li><span>2019년 우체국금융개발원 5..</span> <span class="right">2019-10-23</span>
+							</li>
+							<li><span>우정사업정보센터 기간제 근...</span> <span class="right">2019-10-23</span>
+							</li>
+							<li><span>2019년 1회 장흥우체국 무기..</span> <span class="right">2019-10-23</span>
+							</li>
+							<li><span>2019년도 제5회 당진우체국..</span> <span class="right">2019-10-23</span>
+							</li>
+						</ul>
+						<a href="http://www.koreapost.go.kr/"><img
+							src="./img/more3.png"></a>
+					</div>
+				</div>
+				<div id="centralbox3">
+					<div id="middle6">
+						<p>SNS 소식바로보기</p>
+						<a href="https://blog.naver.com/kpostbank/221685359296"
+							target="_blank"><div class="sns">
+								<img src="./img/sns.png"><span>&lt;우리 동네 우체국
+									탐방기&gt;인천 학익동...</span>
+							</div></a> <a href="https://blog.naver.com/kpostbank/221680519627"
+							target="_blank"><div class="sns">
+								<img src="./img/sns.png"><span>제재와 함께 떠나는 가을여행,
+									수원가을...</span>
+							</div></a> <a href="https://blog.naver.com/kpostbank/221681541114"
+							target="_blank"><div class="sns">
+								<img src="./img/sns.png"><span>[이벤트]우체국 계리직 필기시험
+									수험...</span>
+							</div></a>
+					</div>
+
+					<div id="middle7">
+						<a href="http://postman.koreapost.go.kr/pmindex.do"
+							target="_blank"> <img src="./img/job.png">
+							<p>집배원 채용 바로가기</p>
+							<ul>
+								<li>우정직(집배)</li>
+								<li>상시계약집배원</li>
+								<li>우체국택배원</li>
+							</ul>
+						</a>
+					</div>
+
+					<div id="middle8">
+						<div id="imgSlide" class="slider-pro">
+							<div class="sp-slides">
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead1.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead2.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead3.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead4.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead5.jpg" />
+
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead6.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead7.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead8.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead9.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead10.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead11.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead12.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead13.jpg" />
+								</div>
+
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead14.jpg" />
+								</div>
+								<div class="sp-slide">
+									<img class="sp-image" src="" data-src="./img/sidead15.png" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="redbox">
+		<div id="redboxdiv">
+			<ul id="redboxul">
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="#">제한적본인확인제/I-PIN제도</a></li>
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">찾아오시는길</a></li>
+				<li><a href="#">뷰어다운로드</a></li>
+				<li><a href="#">우정총국</a></li>
+			</ul>
+		</div>
+		<div id="redboxdiv2">
+			<span>전화안내</span>
+		</div>
+	</div>
+	<div id="footbanner1">
+		<ul class="footbannerul">
+			<li><a href="https://www.msit.go.kr/web/main/main.do"><img
+					src="./img/ft_banner2.gif"></a></li>
+			<li><a href="https://stamp.epost.go.kr"><img
+					src="./img/ft_banner1.gif"></a></li>
+			<li><a href="http://www.koreapost.go.kr/postmuseum/index.do"><img
+					src="./img/ft_banner3.gif"></a></li>
+			<li><a href="http://www.koreapost.go.kr/child/main/index.jsp"><img
+					src="./img/ft_banner4.gif"></a></li>
+			<li><a href="http://www.kopf.or.kr"><img
+					src="./img/ft_banner5.gif"></a></li>
+		</ul>
+	</div>
+	<div id="footbanner2">
+		<ul class="footbannerul">
+			<li><a href="https://www.poma.or.kr/site/kr/index.jsp"><img
+					src="./img/ft_banner6.gif"></a></li>
+			<li><a
+				href="https://www.pola.or.kr:8443/web/main/mainPage.do;jsessionid=99074077F2C95861F4A1BD407A617BBE"><img
+					src="./img/ft_banner7.gif"></a></li>
+			<li><a href="https://www.popa.or.kr/main"><img
+					src="./img/ft_banner8.gif"></a></li>
+			<li><a href="https://www.posid.or.kr/index.jsp"><img
+					src="./img/ft_banner9.gif"></a></li>
+			<li><a href="https://www.posa.or.kr/portal/main/main.do"><img
+					src="./img/ft_banner10.gif"></a></li>
+		</ul>
+	</div>
+	<div id="foot">
+		<div id="footbox1">
+			<img src="./img/ft_logo1.png">
+		</div>
+		<div id="footbox2">
+			<p>
+				(300114) 세종특별자치시 도움5로 19 (어진동) 사업자등록번호 101-83-02925 E-mail
+				webpost@koreapost.go.kr<br> 우정고객센터 : 044-200-8114
+				(평일:9:00~18:00), FAX:0505-005-1024, 당직실 : 044-200-8441 (평일 야간, 공휴일)<br>
+				Copyright⒞2016 KOREA POST(Office of postal service). All rights
+				reserved.
+			</p>
+			<strong>해당 웹사이트의 모든 자료는 우정사업본부의 허락 없이 무단으로 복제, 배포 사용할 수
+				없습니다.</strong>
+		</div>
+		<div id="footbox3">
+			<div class="footboxlogo1"></div>
+			<div class="footboxlogo2">
+				<img src="./img/ft_logo2.gif"> <img src="./img/ft_logo3.gif">
+			</div>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

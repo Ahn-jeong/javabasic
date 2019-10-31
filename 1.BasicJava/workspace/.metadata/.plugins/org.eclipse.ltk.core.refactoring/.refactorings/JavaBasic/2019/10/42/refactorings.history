@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;i_collection.ArrayListclass&apos; to &apos;ArrayListClass&apos;&#x0D;&#x0A;- Original project: &apos;JavaBasic&apos;&#x0D;&#x0A;- Original element: &apos;i_collection.ArrayListclass&apos;&#x0D;&#x0A;- Renamed element: &apos;i_collection.ArrayListClass&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ArrayListclass&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;i_collection{ArrayListclass.java[ArrayListclass" matchStrategy="1" name="ArrayListClass" qualified="false" references="true" similarDeclarations="false" stamp="1571188194093" textual="false" version="1.0"/>
+</session>

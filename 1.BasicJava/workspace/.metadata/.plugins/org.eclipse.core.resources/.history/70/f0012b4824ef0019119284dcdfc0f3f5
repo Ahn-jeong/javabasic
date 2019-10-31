@@ -1,0 +1,38 @@
+package h_useful;
+
+public class StringClassProc {
+
+	public static void main(String[] args) {
+//		String s = new String("Hello");
+//		System.out.println(s);
+		
+//		char[] c = {'H','e','l','l','o'};
+//		s = new String(c);
+//		System.out.println(s);
+//		
+//		StringBuffer sb = new StringBuffer("Hello");
+//		s = new String(sb);
+//		System.out.println(s);
+		
+//		s = "Hello";
+//		String n = "0123456";
+//		char c = s.charAt(1);
+//		char c2 = n.charAt(1);
+//		System.out.println(c);
+//		System.out.println(c2);
+		
+//		int i ="aaa".compareTo("aaa");
+//		int i2 ="aaa".compareTo("bbb");
+//		int i3 ="bbb".compareTo("aaa");
+//		System.out.println(i);
+//		System.out.println(i2);
+//		System.out.println(i3);
+		
+		String s = "Hello";
+		String s2 = s.concat(" World");
+		System.out.println(s2);
+		
+		
+	}
+
+}

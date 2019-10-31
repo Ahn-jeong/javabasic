@@ -1,0 +1,229 @@
+
+package dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import vo.StudentVO;
+import vo.SugangListVO;
+import data.Database;
+import data.StuSession;
+
+public class StudentDao {//사용자 정보 확인 다오
+
+	private static StudentDao instance;
+	
+	private StudentDao(){}
+	
+	public static StudentDao getInstance(){
+		if(instance == null){
+			instance = new StudentDao();
+		}
+		return instance;
+	}
+	
+	Database database = Database.getInstance();
+	
+	//관리자 : 학생 학번 검사
+	public StudentVO selectStudent(String key, String value) {
+
+		for (int i = 0; i < database.tb_std.size(); i++) {
+			StudentVO user = database.tb_std.get(i);
+
+			if (key.equals("SN")) {
+				if (user.getStunum().equals(value)) {
+					return user;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	//학생 추가
+	public void insertStudent(StudentVO user) {
+		database.tb_std.add(user);
+	}
+	
+	// 학생 인덱스 번호 찾기
+	public int ChangeStd(HashMap<String, String> param) {
+		int count = 0;
+		for (int i = 0; i < database.tb_std.size(); i++) {
+			StudentVO user = database.tb_std.get(i);
+			Set<String> keys = param.keySet();
+			for (String key : keys) {
+				String value = param.get(key);
+				if (key.equals("SN")) {
+					if (user.getStunum().equals(value)) {
+						count = i;
+					}
+				}
+			}
+		}
+		return count;
+	}
+		
+	// 학생 삭제전 중복찾기
+	public StudentVO CheckStudent(HashMap<String, String> param) {
+		StudentVO rtnUser = null;
+		for (int i = 0; i < database.tb_std.size(); i++) {
+			StudentVO user = database.tb_std.get(i);
+			boolean flag = true;
+			Set<String> keys = param.keySet();
+			for (String key : keys) {
+				String value = param.get(key);
+				if (key.equals("SN")) {
+					if (!user.getStunum().equals(value)) {
+						flag = false;
+					}
+
+				}
+
+			}
+			if (flag) {
+				rtnUser = user;
+			}
+		}
+		return rtnUser;
+	}
+
+	//학생 전체 리스트
+	public ArrayList<StudentVO> selectStudentList() {
+		return database.tb_std;
+	}
+	
+ 	//키워드로 테이블에 저장되어 있는 값 확인해서 비교하기
+	public StudentVO selectStudent(HashMap<String, String> param) { 
+		StudentVO rtnUser = null;
+		for(int i = 0; i<database.tb_std.size(); i++){
+			StudentVO user = database.tb_std.get(i);
+			boolean flag = true;
+			
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("SN")){
+					if(!user.getStunum().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("PASSWORD")){
+					if(!user.getPassword().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("MAJOR")){
+					if(!user.getMajor().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("NAME")){
+					if(!user.getName().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("TEL")){
+					if(!user.getTel().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("EMAIL")){
+					if(!user.getEmail().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("STATE")){
+					if(!user.getState().equals(value)){
+						flag = false;
+					}
+				}
+			}
+			if(flag){
+				rtnUser = user;
+			}
+		}
+		return rtnUser;
+	}
+	
+	//비밀번호 변경 기능
+	public void changePw(String newPw){
+		for(int i = 0; i < database.tb_std.size(); i++){
+			if(StuSession.loginstu.getStunum() == database.tb_std.get(i).getStunum()){
+				database.tb_std.get(i).setPassword(newPw);
+				break;
+			}
+		}
+	}
+	//전화번호 변경 기능
+	public void changeTel(String newTel){
+		for(int i = 0; i < database.tb_std.size(); i++){
+			if(StuSession.loginstu.getStunum() == database.tb_std.get(i).getStunum()){
+				database.tb_std.get(i).setTel(newTel);
+				break;
+			}
+		}
+	}
+	//이메일 변경 기능
+	public void changeEmail(String newEm){
+		for(int i = 0; i < database.tb_std.size(); i++){
+			if(StuSession.loginstu.getStunum() == database.tb_std.get(i).getStunum()){
+				database.tb_std.get(i).setEmail(newEm);
+				break;
+			}
+		}
+	}
+	
+	
+	//내 수강 신청 기능
+		public SugangListVO myLecList(LectureVO lectemp){
+			int count = 0;
+			SugangListVO mySugang = new SugangListVO();
+			for(int i =0; i < database.tb_lec.size(); i++) {
+				if(lectemp.getSubNum() == database.tb_lec.get(i).getSubNum()) {
+					mySugang.setSubnum(database.tb_lec.get(i).getSubNum());
+					mySugang.setStd(StuSession.loginstu.getStunum());
+					mySugang.setLecnum(database.tb_lec.get(i).getLecnum());
+					count++;
+					mySugang.setSugangnum(count);
+					database.tb_sugang.add(mySugang);
+				}
+			}
+			
+			return mySugang;			
+		}
+	
+	
+	
+	//학생 검색 기능 / 키워드로 테이블에 있는 값 비교해서 리스트로 다시 리턴
+	public ArrayList<StudentVO> searchStu(HashMap<String, String> param){
+		ArrayList<StudentVO> stlist = new ArrayList<StudentVO>();
+		for(int i = 0; i<database.tb_std.size(); i++){
+			StudentVO user = database.tb_std.get(i);
+			boolean flag = true;
+			
+			Set<String> keys = param.keySet();
+			for(String key : keys){
+				String value = param.get(key);
+				if(key.equals("SN")){
+					if(!user.getStunum().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("MAJOR")){
+					if(!user.getMajor().equals(value)){
+						flag = false;
+					}
+				}else if(key.equals("NAME")){
+					if(!user.getName().equals(value)){
+						flag = false;
+					}
+				}
+			}
+			
+			if(flag){
+				stlist.add(user);
+			}
+		}
+		return stlist;
+	}
+
+	
+	
+}
+
+
+
